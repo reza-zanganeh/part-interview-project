@@ -14,10 +14,16 @@ datasource db {
 }
 
 model User {
-  id          Int    @id @default(autoincrement())
-  username    String
-  password    String
-  fullname    String
+  id       Int    @id @default(autoincrement())
+  username String
+  password String
+  fullname String
+  role     Role   @default(Normal)
 
   @@index([username])
+}
+
+enum Role {
+  Normal
+  Admin
 }
