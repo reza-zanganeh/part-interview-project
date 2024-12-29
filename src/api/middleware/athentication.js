@@ -7,11 +7,8 @@ const { userModelName } = modelName
 const secret = process.env.JWT_SECRET
 
 module.exports.isAuthenticate = async (req, res, next) => {
-  const token = req.headers?.accesstoken
+  const token = req.headers.accesstoken
   try {
-    // TODO : InputValidation
-    if (!token) return next(createError(Unauthorized()))
-
     const userDataInJWT = verifyJWT(token, secret)
 
     const user = await readOne(userModelName.english, {

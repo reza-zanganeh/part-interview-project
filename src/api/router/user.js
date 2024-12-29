@@ -7,7 +7,12 @@ const {
   getMyInfo,
   updateUserInfo,
 } = require("../controller/user")
-const { loginSV, registerSV, updateSV } = require("../validation/user")
+const {
+  loginSV,
+  registerSV,
+  updateSV,
+  getMyInfoSV,
+} = require("../validation/user")
 
 const { isAuthenticate } = require("../middleware/athentication")
 const { checkCaptcha } = require("../middleware/checkCaptcha")
@@ -17,28 +22,33 @@ const userRouter = express.Router()
 // register user
 userRouter.post(
   "/register",
-  checkCaptcha,
   checkSchema(registerSV),
   expressValidationResultHandler,
+  checkCaptcha,
   register
 )
 // login user
 userRouter.post(
   "/login",
-  checkCaptcha,
   checkSchema(loginSV),
   expressValidationResultHandler,
+  checkCaptcha,
   login
 )
-// get my data
-userRouter.get("/", isAuthenticate, getMyInfo)
 
-// update my data
+userRouter.get(
+  "/",
+  checkSchema(getMyInfoSV),
+  expressValidationResultHandler,
+  isAuthenticate,
+  getMyInfo
+)
+
 userRouter.patch(
   "/",
-  isAuthenticate,
   checkSchema(updateSV),
   expressValidationResultHandler,
+  isAuthenticate,
   updateUserInfo
 )
 

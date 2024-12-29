@@ -6,8 +6,8 @@ module.exports.checkCaptcha = async (req, res, next) => {
   try {
     const { captchaText: inputCaptchaText, uuid } = req.body
 
-    if (!inputCaptchaText || !uuid)
-      return next(createError(BadRequest("کپچا ارسال نشده است")))
+    // if (!inputCaptchaText || !uuid)
+    //   return next(createError(BadRequest("کپچا ارسال نشده است")))
 
     const savedCaptchaText = await getCaptchaTextFromRedis(uuid)
 
@@ -17,13 +17,6 @@ module.exports.checkCaptcha = async (req, res, next) => {
           "کد کپچا به درستی وارد نشده است یا اعتبار ان به پایان رسیده است"
         )
       )
-
-    console.log(
-      "inputCaptchaText>>",
-      inputCaptchaText,
-      "savedCaptchaText",
-      savedCaptchaText
-    )
 
     if (inputCaptchaText.toLowerCase() !== savedCaptchaText.toLowerCase())
       return next(createError(BadRequest("لطفا کد کپچا را به درستی وارد کنید")))
