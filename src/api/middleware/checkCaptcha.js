@@ -6,9 +6,6 @@ module.exports.checkCaptcha = async (req, res, next) => {
   try {
     const { captchaText: inputCaptchaText, uuid } = req.body
 
-    // if (!inputCaptchaText || !uuid)
-    //   return next(createError(BadRequest("کپچا ارسال نشده است")))
-
     const savedCaptchaText = await getCaptchaTextFromRedis(uuid)
 
     if (!savedCaptchaText)
