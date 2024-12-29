@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "394a4399-1821-4e15-a086-f71cf7763add",
+		"name": "user-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16974808",
+		"_collection_link": "https://gold-zodiac-365261.postman.co/workspace/MyProject~8f15e80f-083c-4784-ba8f-95c90ce0781b/collection/16974808-394a4399-1821-4e15-a086-f71cf7763add?action=share&source=collection_link&creator=16974808"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"reza.zanganeh\",\r\n    \"password\": \"09391825987\",\r\n    \"fullname\": \"رضا زنگنه ثانی\",\r\n    \"captchaText\": \"ouxh2\",\r\n    \"uuid\": \"25a9269b-8d6c-4f08-8f9e-e453ca3e8a21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"reza.zanganeh1\",\r\n    \"password\":\"09391825987\",\r\n    \"captchaText\":\"ouxh2\",\r\n    \"uuid\":\"25a9269b-8d6c-4f08-8f9e-e453ca3e8a21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJSb2xlIjoiTm9ybWFsIiwiaWF0IjoxNzM1NDc5MDQ1LCJleHAiOjE3MzU1NjU0NDV9.K3agD2DsJUMD0X6u0DH4VGpPk7tixIsKWK_J1pP-BuA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user info",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJSb2xlIjoiTm9ybWFsIiwiaWF0IjoxNzM1NDc5MDQ1LCJleHAiOjE3MzU1NjU0NDV9.K3agD2DsJUMD0X6u0DH4VGpPk7tixIsKWK_J1pP-BuA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"reza.zanganeh12\",\r\n    \"password\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "captcha",
+			"item": [
+				{
+					"name": "get captcha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/captcha/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"captcha",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
