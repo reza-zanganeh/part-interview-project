@@ -101,7 +101,7 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.getMyInfo = async (req, res, next) => {
   try {
-    const { userId } = req[userModelName.english]
+    const { id: userId } = req[userModelName.english]
 
     const userInfo = await readOne(userModelName.english, { id: +userId })
 
@@ -119,7 +119,7 @@ module.exports.getMyInfo = async (req, res, next) => {
 
 module.exports.updateUserInfo = async (req, res, next) => {
   try {
-    const { userId } = req[userModelName.english]
+    const { id: userId } = req[userModelName.english]
 
     const {
       username: newUsername,

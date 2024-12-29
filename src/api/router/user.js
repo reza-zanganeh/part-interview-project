@@ -8,16 +8,16 @@ const {
   updateUserInfo,
 } = require("../controller/user")
 const { loginSV, registerSV, updateSV } = require("../validation/user")
-const { modelName } = require("../../config/constant")
-const { userModelName } = modelName
 
 const { isAuthenticate } = require("../middleware/athentication")
+const { checkCaptcha } = require("../middleware/checkCaptcha")
 
 const userRouter = express.Router()
 
 // register user
 userRouter.post(
   "/register",
+  checkCaptcha,
   checkSchema(registerSV),
   expressValidationResultHandler,
   register
@@ -25,6 +25,7 @@ userRouter.post(
 // login user
 userRouter.post(
   "/login",
+  checkCaptcha,
   checkSchema(loginSV),
   expressValidationResultHandler,
   login
