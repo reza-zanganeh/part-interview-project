@@ -104,6 +104,8 @@ module.exports.getMyInfo = async (req, res, next) => {
 
     const userInfo = await readOne(userModelName.english, { id: +userId })
 
+    delete userInfo.password
+
     resposeHandler(res, userInfo, Ok({ operationName: "دریافت اطلاعات" }))
   } catch (error) {
     internalServerErrorHandler(next, error)
