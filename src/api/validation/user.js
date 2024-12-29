@@ -1,4 +1,4 @@
-const { required, password, isString } = require("../helper/inputValidation")
+const { required, password, isString } = require("./inputValidation")
 
 module.exports.registerSV = {
   username: required("نام کاربری", "body"),

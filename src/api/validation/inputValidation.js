@@ -1,5 +1,5 @@
 const { empty, limitLegth, invalid } = require("./validationMessage")
-const { readOne } = require("../helper/prisma")
+const { readOne } = require("../db/prisma/prisma")
 
 module.exports.password = (location) => ({
   in: [location],

@@ -1,11 +1,11 @@
-const { createError } = require("./functions")
+const { createError } = require("../../helper/functions")
 const {
   resposeHandler,
   internalServerErrorHandler,
-} = require("./responseHandler")
-const { Created, BadRequest, Ok } = require("./httpResponse")
+} = require("../../helper/responseHandler")
+const { Created, BadRequest, Ok } = require("../../helper/httpResponse")
 
-const { create, update, remove, readOne } = require("./prisma")
+const { create, update, remove, readOne } = require("./index")
 
 const createController = async (
   MODELNAME,

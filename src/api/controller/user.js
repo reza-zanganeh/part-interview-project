@@ -5,7 +5,7 @@ const {
   compareUserPassword,
 } = require("../helper/functions")
 const { modelName } = require("../../config/constant")
-const { create, readOne, update } = require("../helper/prisma")
+const { create, readOne, update } = require("../db/prisma/prisma")
 const { Created, BadRequest, Ok } = require("../helper/httpResponse")
 const {
   internalServerErrorHandler,
@@ -65,7 +65,8 @@ module.exports.login = async (req, res, next) => {
       username,
     })
 
-    if (!user) return next(createError(BadRequest("حساب کاربری شما یافت نشد")))
+    if (!user)
+      return next(createError(BadRequest("رمز عبور یا نام کاربری اشتباه است")))
 
     const password = user.password
 
@@ -74,9 +75,9 @@ module.exports.login = async (req, res, next) => {
       password
     )
 
-    if (!resultOfcomparePassword) {
-      return next(createError(BadRequest("رمز عبور وارد شده صحیح نمی باشد")))
-    }
+    if (!resultOfcomparePassword)
+      return next(createError(BadRequest("رمز عبور یا نام کاربری اشتباه است")))
+
     // if true create and send token
     const accesstoken = createAuthenticationToken({
       userId: user.id,
@@ -104,9 +105,13 @@ module.exports.getMyInfo = async (req, res, next) => {
 
     const userInfo = await readOne(userModelName.english, { id: +userId })
 
-    delete userInfo.password
+    const { id, username, fullname, role } = userInfo
 
-    resposeHandler(res, userInfo, Ok({ operationName: "دریافت اطلاعات" }))
+    resposeHandler(
+      res,
+      { id, username, fullname, role },
+      Ok({ operationName: "دریافت اطلاعات" })
+    )
   } catch (error) {
     internalServerErrorHandler(next, error)
   }
@@ -116,11 +121,17 @@ module.exports.updateUserInfo = async (req, res, next) => {
   try {
     const { userId } = req[userModelName.english]
 
-    const { username, password, fullname } = req.body
+    const {
+      username: newUsername,
+      password: newPassword,
+      fullname: newFullname,
+    } = req.body
 
     const updateData = {}
-    if (username) {
-      const isUserExists = await readOne(userModelName.english, { username })
+    if (newUsername) {
+      const isUserExists = await readOne(userModelName.english, {
+        username: newUsername,
+      })
 
       if (isUserExists)
         return next(
@@ -131,15 +142,15 @@ module.exports.updateUserInfo = async (req, res, next) => {
           )
         )
 
-      updateData["username"] = username
+      updateData["username"] = newUsername
     }
 
-    if (password) {
-      const hashedPass = await hashUserPassword(password)
+    if (newPassword) {
+      const hashedPass = await hashUserPassword(newPassword)
       updateData["password"] = hashedPass
     }
 
-    if (fullname) updateData["fullname"] = fullname
+    if (newFullname) updateData["fullname"] = newFullname
 
     const updatedUser = await update(
       userModelName.english,
@@ -147,9 +158,13 @@ module.exports.updateUserInfo = async (req, res, next) => {
       updateData
     )
 
-    delete updatedUser.password
+    const { id, username, fullname, role } = updatedUser
 
-    resposeHandler(res, updatedUser, Ok({ operationName: "دریافت اطلاعات" }))
+    resposeHandler(
+      res,
+      { id, username, fullname, role },
+      Ok({ operationName: "دریافت اطلاعات" })
+    )
   } catch (error) {
     internalServerErrorHandler(next, error)
   }
