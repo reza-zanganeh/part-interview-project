@@ -8,8 +8,8 @@ const {
   Ok,
   NotFound,
   BadRequest,
-} = require("./HttpResponse")
-const { createError } = require("./Functions")
+} = require("./httpResponse")
+const { createError } = require("./functions")
 
 module.exports.errorHandler = (err, req, res, next) => {
   const { statusCode, message } = err
