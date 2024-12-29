@@ -1,9 +1,9 @@
-const { createError } = require("./Functions")
+const { createError } = require("./functions")
 const {
   resposeHandler,
   internalServerErrorHandler,
 } = require("./responseHandler")
-const { Created, BadRequest, Ok } = require("./HttpResponse")
+const { Created, BadRequest, Ok } = require("./httpResponse")
 
 const { create, update, remove, readOne } = require("./prisma")
 

@@ -1,6 +1,7 @@
-// const jwt = require("jsonwebtoken")
-// const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt")
+const { createJWT } = require("../security/jwt")
 const projectConfig = require("../../config/index")
+const secret = process.env.JWT_SECRET
 
 module.exports.createError = ({ statusCode, message }) => {
   const error = new Error()
@@ -9,19 +10,18 @@ module.exports.createError = ({ statusCode, message }) => {
   return error
 }
 
-module.exports.createAuthenticationToken = ({
-  userId,
-  role,
-  fullname,
-  phonenumber,
-}) => {
-  const token = jwt.sign(
-    { id: userId, role, fullname, phonenumber },
-    projectConfig.authentication.tokenKey,
-    {
-      expiresIn: `${projectConfig.authentication.authenticationTokenExpiresTimeInMinute}m`,
-    }
-  )
+module.exports.createAuthenticationToken = ({ userId, userRole }) => {
+  const header = { alg: "HS256", typ: "JWT" }
+  const payload = {
+    userId,
+    userRole,
+    iat: Math.floor(Date.now() / 1000), // زمان ایجاد
+    exp:
+      Math.floor(Date.now() / 1000) +
+      projectConfig.authentication.authenticationTokenExpiresTimeInMinute * 60, // انقضا: 24 ساعت
+  }
+
+  const token = createJWT(header, payload, secret)
   return token
 }
 

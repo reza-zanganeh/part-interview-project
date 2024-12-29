@@ -1,30 +1,29 @@
 //#region require third party packages
-const express = require('express');
-const compression = require('compression');
-const cors = require('cors');
-
-require('dotenv').config();
+const express = require("express")
+const compression = require("compression")
+const cors = require("cors")
+require("dotenv").config()
 
 //#endregion
 //#region global app configuration
-const projectConfig = require('../config/index');
-const { registerRoutes } = require('./router/index');
-const { internalServerErrorHandler } = require('./helper/responseHandler');
+const projectConfig = require("../config/index")
+const { registerRoutes } = require("./router/index")
+const { internalServerErrorHandler } = require("./helper/responseHandler")
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(compression());
-app.use(cors(projectConfig.server.httpServer.cors));
+const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(compression())
+app.use(cors(projectConfig.server.httpServer.cors))
 
-registerRoutes(app);
+registerRoutes(app)
 //#endregion
 
-const PORT = projectConfig.server.httpServer.port;
+const PORT = projectConfig.server.httpServer.port
 app.listen(PORT, async () => {
   try {
-    console.log(`server is running on ${PORT}`);
+    console.log(`server is running on ${PORT}`)
   } catch (error) {
-    internalServerErrorHandler(null, error);
+    internalServerErrorHandler(null, error)
   }
-});
+})
