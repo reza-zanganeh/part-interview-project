@@ -1,0 +1,4 @@
+register
+login with jwt
+update user data
+captcha

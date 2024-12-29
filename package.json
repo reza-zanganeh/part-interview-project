@@ -1,0 +1,31 @@
+{
+  "name": "part-interview-project",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon --ignore src/api/log/internalServerError.log src/api/app.js",
+    "start": "node src/api/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reza-zanganeh/part-interview-project.git"
+  },
+  "author": "reza.zanganeh.sani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reza-zanganeh/part-interview-project/issues"
+  },
+  "homepage": "https://github.com/reza-zanganeh/part-interview-project#readme",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.1.0",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "nodemon": "^3.1.9",
+    "persian-date": "^1.1.0",
+    "prisma": "^6.1.0"
+  }
+}
